@@ -8,7 +8,21 @@ import { FormService } from '../form.service';
 })
 export class UserFormComponent implements OnInit {
 
-  constructor(private formService : FormService) { }
+  constructor(private formService : FormService) {
+
+    formService.getData().subscribe(
+      x => {
+          console.log("VALUE RECEIVED: ",x);
+      },
+      x => {
+          console.log("ERROR: ",x);
+      },
+      () => {
+          console.log("Completed");
+      }
+    );
+
+  }
 
   ngOnInit() {
     //alert(this.formService.getTest());
