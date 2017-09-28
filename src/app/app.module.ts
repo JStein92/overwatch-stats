@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { StatHeaderComponent } from './stat-header/stat-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserFormComponent
+    UserFormComponent,
+    StatHeaderComponent
   ],
   imports: [
     BrowserModule,

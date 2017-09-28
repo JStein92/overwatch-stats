@@ -33,6 +33,8 @@ export class UserFormComponent implements OnInit {
       () => {
           console.log("Completed");
           this.setStats();
+          this.formService.setPlayerStats(this.playerStats);
+
       }
     );
   }

@@ -4,12 +4,6 @@
   <button type="button" name="button" (click) = "findUser(battlenet.value)" class="btn btn-info">Search</button>
 </div>
 
-
-
-
-
-
-
 <div *ngIf="level">
   <div class="stat-header ">
       <img src='{{avatar}}' class="playerIcon">
@@ -26,3 +20,8 @@
     </div>
 
   </div>
+
+<div *ngIf="level">
+  <app-stat-header></app-stat-header>
+
+</div>

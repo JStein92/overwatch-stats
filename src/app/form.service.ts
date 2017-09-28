@@ -36,10 +36,12 @@ export class FormService {
     }
     setPlayerStats(userData){
       this.playerStats = userData;
+
     }
 
     getPlayerStats(){
-
+      console.log("GET PLAYER STATS(): " + this.playerStats.us.stats.competitive.overall_stats.level);
+      return this.playerStats;
     }
 
   }
