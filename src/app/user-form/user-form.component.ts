@@ -7,21 +7,14 @@ import { FormService } from '../form.service';
   providers:[FormService]
 })
 export class UserFormComponent implements OnInit {
+  level;
+  compRank;
+  avatar;
+  tier;
+  playerName;
 
+  playerStats;
   constructor(private formService : FormService) {
-
-    formService.getData().subscribe(
-      x => {
-          console.log("VALUE RECEIVED: ",x);
-      },
-      x => {
-          console.log("ERROR: ",x);
-      },
-      () => {
-          console.log("Completed");
-      }
-    );
-
   }
 
   ngOnInit() {
@@ -29,7 +22,26 @@ export class UserFormComponent implements OnInit {
   }
 
   findUser(userSearch){
-    this.formService.getTest();
+    this.formService.getData(userSearch).subscribe(
+      userData => {
+          this.playerStats = userData;
+          this.playerName = userSearch;
+        },
+      userData => {
+          console.log("ERROR: ",userData);
+      },
+      () => {
+          console.log("Completed");
+          this.setStats();
+      }
+    );
+  }
+
+  setStats() {
+    this.level = this.playerStats.us.stats.competitive.overall_stats.level;
+    this.compRank = this.playerStats.us.stats.competitive.overall_stats.comprank;
+    this.avatar = this.playerStats.us.stats.competitive.overall_stats.avatar;
+    this.tier = this.playerStats.us.stats.competitive.overall_stats.tier;
   }
 
 

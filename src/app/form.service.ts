@@ -6,20 +6,20 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 
 export class FormService {
-
-playerStats;
+  playerStats;
   //http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=3&words=15 - WORKING API
   //https://github.com/SunDwarf/OWAPI/blob/master/api.md - Docs for OV api
 
   constructor(private http: Http) {}
-    private usersUrl = 'https://owapi.net/api/v3/u/Chuggsy-11927/blob';
+  //  private usersUrl = 'https://owapi.net/api/v3/u/Chuggsy-11927/blob';
 
-    getData() {
-      return this.http.get(this.usersUrl)
-      .map(this.extractData)
+    getData(userId) {
+      return this.http.get('https://owapi.net/api/v3/u/'+userId+'/blob')
+      .map(this.extractData);
     }
 
     private extractData(res: Response) {
+
       return res.json();
       //return body.data || { };
     }
@@ -34,9 +34,12 @@ playerStats;
 
 
     }
+    setPlayerStats(userData){
+      this.playerStats = userData;
+    }
 
-  getTest(){
+    getPlayerStats(){
 
-  }
+    }
 
   }

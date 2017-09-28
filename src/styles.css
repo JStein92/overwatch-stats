@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  background-color: #292d33;
+}
+#user-form{
+  position: fixed;
+  left: 35%;
+  top: 40%;
+
+  background-color: #25272b;
+  padding: 60px;
+  border-radius: 30px;
+  text-align: center;
+  color: white;
+  font-size: 2em;
+}
+#user-form input{
+  height:3em;
+}
+.sub-header{
+  color: white;
+}
+
+
+.stat-header{
+  background-color: #25272b;
+  width: 100%;
+  font-size: 4em;
+  color:white;
+  text-shadow: 2px 2px 6px black;
+}
+.playerName{
+  text-align: center;
+}
+.playerIcon{
+
+}
+.info-block{
+  color: white;
+  background-color:#3b414f;
+}
+.info-block{
+  padding: 10px;
+}
+
+#slide {
+    position: absolute;
+    left: -100%;
+    animation: slide 4s forwards;
+    animation-delay: .5s;
+    overflow: hidden;
+}
+
+@keyframes slide {
+    100% { top: 150px; left: 10%}
+}
