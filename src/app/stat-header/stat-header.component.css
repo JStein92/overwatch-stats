@@ -1,0 +1,88 @@
+.jumbotron h1{
+    font-size: 6em;
+  color: #f9a11c;
+}
+.jumbotron{
+  background-color: #29282b;
+  margin-bottom: 0;
+  padding: 10px;
+}
+.select-character{
+  font-size: 2em;
+  padding: 10px;
+}
+.char-time-played{
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+.time-played{
+  font-size: 3em;
+  color: white;
+  margin-left: 20%;
+  margin-bottom: 15px;
+}
+.time-played-bar{
+  margin-top: 15px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.time-played-bar-text{
+  font-size: 2.5em;
+  padding-top: 8px;
+  position: absolute;
+ text-shadow: 1px 1px 3px black;
+
+}
+.time-played-bar-fill{
+  height: 30px;
+}
+
+.jumbotron img{
+  border-radius: 100px;
+  margin-right: 20px;
+  height: 100px;
+}
+.centered{
+  text-align: center;
+}
+.level-border{
+  position: relative;
+  margin-top: 0px;
+  padding-top: 0;
+  padding: 0;
+}
+
+.header{
+  padding-top: 0;
+  margin-top: 0;
+  background-color: #29282b;
+  text-align: center;
+
+}
+.character{
+  margin: 30px;
+}
+.character img{
+  width: 95%;
+
+  min-width: 500px;
+}
+.character-deck{
+  opacity: .9;
+}
+.header h1{
+  color: #f9a11c;
+font-size: 3em;
+
+}
+.char-stat-block{
+
+}
+.level, .SR{
+  font-size: .5em;
+  color: #eaeaea;
+}
+.level-header{
+  border-right: 6px solid #262626;
+
+}

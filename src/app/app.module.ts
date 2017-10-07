@@ -6,18 +6,21 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { StatHeaderComponent } from './stat-header/stat-header.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AchievementsComponent } from './achievements/achievements.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserFormComponent,
-    StatHeaderComponent
+    StatHeaderComponent,
+    AchievementsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

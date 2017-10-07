@@ -1,0 +1,10 @@
+.card-deck{
+  margin-bottom: 30px;
+}
+.card-block{
+  padding: 20px;
+}
+.card-img-top{
+  width: 50px;
+  margin: 5px;
+}

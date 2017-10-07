@@ -1,27 +1,14 @@
-<div *ngIf="!level" id="user-form">
-  <label for="">Enter Battlenet Id</label>
-  <input type="text" value="Chuggsy-11927" #battlenet class="form-control">
-  <button type="button" name="button" (click) = "findUser(battlenet.value)" class="btn btn-info">Search</button>
+<div *ngIf="!level && !searching" id="user-form">
+<label for="">Enter Battlenet Id</label>
+<input type="text" value="Chuggsy-11927" #battlenet class="form-control">
+<button type="button" name="button" (click) = "findUser(battlenet.value)" class="btn btn-info">Search</button>
+</div>
+
+<div class="searchingContainer" *ngIf="searching && !level">
+  <h1 class="searching">Loading...</h1>
 </div>
 
 <div *ngIf="level">
-  <div class="stat-header ">
-      <img src='{{avatar}}' class="playerIcon">
-      <span class="playerName">
-          <span>{{playerName}}</span>
-      </span>
-    </div>
-
-    <div class="container">
-      <div class="sub-header con">
-        <h1 class="info-block" id="slide">{{compRank}}</h1>
-          <h1>{{level}}</h1>
-      </div>
-    </div>
-
-  </div>
-
-<div *ngIf="level">
   <app-stat-header></app-stat-header>
-
+  <app-achievements></app-achievements>
 </div>

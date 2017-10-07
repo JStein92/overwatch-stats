@@ -6,6 +6,7 @@ import { FormService } from '../form.service';
   styleUrls: ['./user-form.component.css'],
   providers:[FormService]
 })
+
 export class UserFormComponent implements OnInit {
   level;
   compRank;
@@ -16,12 +17,13 @@ export class UserFormComponent implements OnInit {
   playerStats;
   constructor(private formService : FormService) {
   }
-
+searching;
   ngOnInit() {
     //alert(this.formService.getTest());
   }
 
   findUser(userSearch){
+    this.searching=true;
     this.formService.getData(userSearch).subscribe(
       userData => {
           this.playerStats = userData;

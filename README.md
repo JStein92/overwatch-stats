@@ -1,3 +1,18 @@
+To Display:
+
+level
+rank
+win rate
+top played hero - default image
+hero_stats for character
+
+
+
+
+
+
+
+
 # OverwatchSite
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
