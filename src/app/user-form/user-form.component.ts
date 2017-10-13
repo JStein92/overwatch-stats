@@ -13,7 +13,7 @@ export class UserFormComponent implements OnInit {
   avatar;
   tier;
   playerName;
-
+  doneSearching;
   playerStats;
   constructor(private formService : FormService) {
   }
@@ -33,20 +33,14 @@ searching;
           console.log("ERROR: ",userData);
       },
       () => {
-          console.log("Completed");
-          this.setStats();
-          this.formService.setPlayerStats(this.playerStats);
-
+      //    console.log("Completed");
+          this.formService.setPlayerStats(this.playerStats, this.playerName);
+          this.doneSearching=true;
       }
     );
   }
 
-  setStats() {
-    this.level = this.playerStats.us.stats.competitive.overall_stats.level;
-    this.compRank = this.playerStats.us.stats.competitive.overall_stats.comprank;
-    this.avatar = this.playerStats.us.stats.competitive.overall_stats.avatar;
-    this.tier = this.playerStats.us.stats.competitive.overall_stats.tier;
-  }
+
 
 
 

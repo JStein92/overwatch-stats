@@ -9,11 +9,30 @@
 }
 .select-character{
   font-size: 2em;
-  padding: 10px;
+  padding-top: 12px;
+  z-index: 2;
+
+}
+.select-character select{
+    background-color: #262626;
+    margin-right: 20%;
+    color: white;
+
 }
 .char-time-played{
   padding-bottom: 30px;
   padding-top: 30px;
+}
+.show-all{
+  background-color: grey;
+  width: 200px;
+  text-align: center;
+}
+.centered-show-all{
+  margin-top: 10px;
+  color: white;
+  text-align: center;
+  margin-bottom: -20px;
 }
 .time-played{
   font-size: 3em;
@@ -57,18 +76,27 @@
   margin-top: 0;
   background-color: #29282b;
   text-align: center;
-
+  width: 100%;
 }
 .character{
-  margin: 30px;
+  margin: 15px;
 }
 .character img{
-  width: 95%;
+  height: 500px;
+  z-index: 0;
+  display: block;
+  margin: auto;
+}
+.character-image-container{
+  text-align: center;
 
-  min-width: 500px;
+  float: right;
+}
+.stat-detail{
+  color:black;
 }
 .character-deck{
-  opacity: .9;
+  opacity: .95;
 }
 .header h1{
   color: #f9a11c;
@@ -76,7 +104,12 @@ font-size: 3em;
 
 }
 .char-stat-block{
-
+  height: 440px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.card-block{
+  padding: 10px;
 }
 .level, .SR{
   font-size: .5em;
@@ -84,5 +117,45 @@ font-size: 3em;
 }
 .level-header{
   border-right: 6px solid #262626;
+  padding-right: 30px;
+  padding-left: 60px;
+}
+.sr-header{
+  padding-left: 30px;
+}
+.show-btn{
+  margin-left: 20px;
+}
+.general-stats{
+  height: 440px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.card-title{
+  font-size: 1.5em;
+  color:  #f9a11c;
+}
+.list-group-item{
+  font-size: 1.2em;
+}
+.centered-show{
+  text-align: center;
+  color: white;
+  margin: 10px;
+}
 
+#style-8::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+#style-8::-webkit-scrollbar
+{
+	width: 15px;
+	background-color: #F5F5F5;
+}
+
+#style-8::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
 }

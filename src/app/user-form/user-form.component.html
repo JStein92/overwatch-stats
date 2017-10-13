@@ -1,14 +1,14 @@
-<div *ngIf="!level && !searching" id="user-form">
+<div *ngIf="!doneSearching && !searching" id="user-form">
 <label for="">Enter Battlenet Id</label>
 <input type="text" value="Chuggsy-11927" #battlenet class="form-control">
 <button type="button" name="button" (click) = "findUser(battlenet.value)" class="btn btn-info">Search</button>
 </div>
 
-<div class="searchingContainer" *ngIf="searching && !level">
+<div class="searchingContainer" *ngIf="searching && !doneSearching">
   <h1 class="searching">Loading...</h1>
 </div>
 
-<div *ngIf="level">
+<div *ngIf="doneSearching">
   <app-stat-header></app-stat-header>
   <app-achievements></app-achievements>
 </div>

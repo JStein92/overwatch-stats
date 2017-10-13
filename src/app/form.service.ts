@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Rx';
 
 export class FormService {
   playerStats;
+  userName;
   //http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=3&words=15 - WORKING API
   //https://github.com/SunDwarf/OWAPI/blob/master/api.md - Docs for OV api
 
@@ -34,14 +35,18 @@ export class FormService {
 
 
     }
-    setPlayerStats(userData){
+    setPlayerStats(userData, userName){
       this.playerStats = userData;
+      this.userName = userName;
 
     }
 
     getPlayerStats(){
-      console.log("GET PLAYER STATS(): " + this.playerStats.us.stats.competitive.overall_stats.level);
+    //  console.log("GET PLAYER STATS(): " + this.playerStats.us.stats.competitive.overall_stats.level);
       return this.playerStats;
+    }
+    getUserName(){
+      return this.userName;
     }
 
   }
