@@ -14,14 +14,27 @@
 </div>
 
 <div *ngIf="heroSelected">
-  <div class="select-character row d-flex justify-content-center"   [@flyInCharacterContainer]="'in'" >
+  <div class="select-character row" [@flyInCharacterContainer]="'in'" >
 
-    <select (change)="onCharSelect($event.target.value)">
-      <option *ngFor="let hero of heroList" value="{{hero.name}}" [selected] = "hero.name == heroSelected.name">{{hero.name}}</option>
-    </select>
+    <div class="col-md-3">
 
-    <button *ngIf="isCompetitive(heroSelected)" [class] = "competitiveBtn()" type="button" name="button" (click)="showCompetitiveStats(heroSelected)">Competitive</button>
-    <button *ngIf="isQuickplay(heroSelected)" [class] = "quickplayBtn()" type="button" name="button" (click)="showQuickplayStats(heroSelected)">Quickplay</button>
+    </div>
+
+    <div class="col-md-3">
+      <select (change)="onCharSelect($event.target.value)">
+        <option *ngFor="let hero of heroList" value="{{hero.name}}" [selected] = "hero.name == heroSelected.name" class="select-box">{{hero.name}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <button [class] = "competitiveBtn(heroSelected)" type="button" name="button" (click)="showCompetitiveStats(heroSelected)"><span *ngIf="isCompetitive(heroSelected)">Competitive</span><span *ngIf="!isCompetitive(heroSelected)">No Competitive Data</span></button>
+
+      <button *ngIf="isQuickplay(heroSelected)" [class] = "quickplayBtn(heroSelected)" type="button" name="button" (click)="showQuickplayStats(heroSelected)"><span *ngIf="isQuickplay(heroSelected)">Quickplay</span><span *ngIf="!isQuickplay(heroSelected)">No Quickplay Data</span></button>
+    </div>
+
+    <div class="col-md-3">
+
+    </div>
   </div>
 </div>
 
@@ -57,7 +70,7 @@
     </div>
 
     <div class="col-lg-3" [@flyInCharacterStats]="'in'" style="z-index: 5">
-    <h4 class="card-title">{{heroSelected.name}}'s Stats
+    <h4 class="card-title">{{heroSelected.name}}'s Special Stats
       <div class="btn-group" role="group">
       </div>
     </h4>
@@ -72,7 +85,7 @@
     </div>
 
     <div class="col-lg-3"  [@flyInCharacterStats]="'in'">
-      <h4 class="card-title">General Stats</h4>
+      <h4 class="card-title">{{heroSelected.name}}'s General Stats</h4>
         <div id="style-8"class="character-deck general-stats" >
           <div class="card stat-block">
             <ul class="list-group list-group-flush">

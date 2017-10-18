@@ -173,7 +173,7 @@ export class StatHeaderComponent implements OnInit {
       this.compStats = Object.keys(compStatsObj).map(function(key) {
         let keyNoUnderscores = key.replace(/_/g," ");
         let newStat = {name:keyNoUnderscores, details: compStatsObj[key]};
-        if (newStat.details % 1 !=0){
+        if (newStat.details % 1 !=0 && !newStat.name.includes("kpd")){
               newStat.details = newStat.details.toFixed(2).toString() + " hours";
         }
             return newStat;
@@ -183,7 +183,7 @@ export class StatHeaderComponent implements OnInit {
       this.quickplayStats = Object.keys(quckplayStatsObj).map(function(key) {
         let keyNoUnderscores = key.replace(/_/g," ");
         let newStat = {name:keyNoUnderscores,  details: quckplayStatsObj[key]};
-        if (newStat.details % 1 !=0){
+        if (newStat.details % 1 !=0 && !newStat.name.includes("kpd")){
               newStat.details = newStat.details.toFixed(2).toString() + " hours";
         }
         return newStat;
@@ -191,19 +191,17 @@ export class StatHeaderComponent implements OnInit {
   }
 
   showQuickplayStats(hero){
-    this.statSetToShow="quickplay";
-
-    this.onCharSelect(hero);
-    console.log(this.statSetToShow);
-
+    if (this.isQuickplay(hero)){
+      this.statSetToShow="quickplay";
+      this.onCharSelect(hero);
+    }
   }
 
   showCompetitiveStats(hero){
-    this.statSetToShow="competitive";
-
-    this.onCharSelect(hero);
-    console.log(this.statSetToShow);
-
+    if (this.isCompetitive(hero)){
+      this.statSetToShow="competitive";
+      this.onCharSelect(hero);
+    }
   }
 
   isCompetitive(heroSelected){
@@ -284,7 +282,6 @@ export class StatHeaderComponent implements OnInit {
   setHeroStats(){
     this.heroStats = null;
     this.generalStats = null;
-    console.log(this.heroSelected);
 
     let heroStatObj = this.heroSelected.details.hero_stats;
     this.heroStats=Object.keys(heroStatObj).map(function(key){
@@ -332,20 +329,30 @@ export class StatHeaderComponent implements OnInit {
 
   }
 
-  competitiveBtn(){
-    if (this.statSetToShow === "quickplay"){
-      return "btn btn-info btn-on"
-    } else {
-      return "btn btn-info btn-off"
-    }
+  competitiveBtn(heroSelected){
+    if(this.isCompetitive(heroSelected)){
+        if (this.statSetToShow === "quickplay"){
+          return "btn btn-info btn-on"
+        } else {
+            return "btn btn-info btn-off"
+        }
+      } else{
+
+        return "btn btn-info btn-disabled"
+      }
   }
 
-  quickplayBtn(){
-    if (this.statSetToShow === "competitive"){
-      return "btn btn-info btn-on"
-    } else {
-        return "btn btn-info btn-off"
+  quickplayBtn(heroSelected){
+    if(this.isQuickplay(heroSelected)){
+        if (this.statSetToShow === "competitive"){
+          return "btn btn-info btn-on"
+        } else {
+            return "btn btn-info btn-off"
+        }
+      } else{
+        return "btn btn-info btn-disabled"
+      }
     }
-  }
+
 
 }

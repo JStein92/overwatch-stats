@@ -11,12 +11,13 @@
   font-size: 2em;
   padding-top: 12px;
   z-index: 2;
+  margin: 5px;
 
 }
 .select-character select{
     background-color: #262626;
-    margin-right: 20%;
     color: white;
+    padding: 2px;
 
 }
 .prestige{
@@ -110,12 +111,30 @@ font-size: 3em;
   color: white;
   margin: 10px;
 }
-
+.select-box{
+  padding: 4px;
+}
+.btn-on, .btn-off, .btn-disabled{
+  font-size: .6em;
+  margin: 5px;
+}
 .btn-on{
   border: 5px solid black;
+
 }
 .btn-off{
   border: 5px solid green;
+
+}
+.btn-disabled{
+  border: 5px solid grey;
+  background-color: grey;
+  opacity: .5;
+
+    outline: none;
+}
+.btn-disabled:focus{
+  outline: none;
 }
 
 #style-8::-webkit-scrollbar-track
