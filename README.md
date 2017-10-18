@@ -1,19 +1,14 @@
-To Display:
+# Overwatch Stats
 
-level
-rank
-win rate
-top played hero - default image
-hero_stats for character
+#### _A sleek and fast site to get essential Overwatch stats made with Angular2_
 
+## Features
+- Uses OWApi to retrieve .JSON and display Icon, Name, Level and more
+- Lets user select character to show stats for
+- Shows hours played, sorted first by hero selected then by play time
+- User can hover over hours played bars to get precise time played
+- Lets user see and refresh randomized stat cards
 
-
-
-
-
-
-
-# OverwatchSite
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
