@@ -19,43 +19,9 @@
     color: white;
 
 }
-.char-time-played{
-  padding-bottom: 30px;
-  padding-top: 30px;
+.prestige{
+  font-size: .5em;
 }
-.show-all{
-  background-color: grey;
-  width: 200px;
-  text-align: center;
-}
-.centered-show-all{
-  margin-top: 10px;
-  color: white;
-  text-align: center;
-  margin-bottom: -20px;
-}
-.time-played{
-  font-size: 3em;
-  color: white;
-  margin-left: 20%;
-  margin-bottom: 15px;
-}
-.time-played-bar{
-  margin-top: 15px;
-  margin-left: 20%;
-  margin-right: 20%;
-}
-.time-played-bar-text{
-  font-size: 2.5em;
-  padding-top: 8px;
-  position: absolute;
- text-shadow: 1px 1px 3px black;
-
-}
-.time-played-bar-fill{
-  height: 30px;
-}
-
 .jumbotron img{
   border-radius: 100px;
   margin-right: 20px;
@@ -88,9 +54,11 @@
   margin: auto;
 }
 .character-image-container{
-  text-align: center;
-
   float: right;
+  right: 0;
+  margin-right: 0;
+  padding-right: 0;
+
 }
 .stat-detail{
   color:black;
@@ -104,7 +72,7 @@ font-size: 3em;
 
 }
 .char-stat-block{
-  height: 440px;
+  max-height: 440px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -123,15 +91,14 @@ font-size: 3em;
 .sr-header{
   padding-left: 30px;
 }
-.show-btn{
-  margin-left: 20px;
-}
+
 .general-stats{
   height: 440px;
   overflow-y: auto;
   overflow-x: hidden;
 }
 .card-title{
+  margin-top: 10px;
   font-size: 1.5em;
   color:  #f9a11c;
 }
@@ -142,6 +109,13 @@ font-size: 3em;
   text-align: center;
   color: white;
   margin: 10px;
+}
+
+.btn-on{
+  border: 5px solid black;
+}
+.btn-off{
+  border: 5px solid green;
 }
 
 #style-8::-webkit-scrollbar-track

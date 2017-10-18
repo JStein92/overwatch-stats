@@ -8,12 +8,14 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { StatHeaderComponent } from './stat-header/stat-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AchievementsComponent } from './achievements/achievements.component';
+import { TimePlayedComponent } from './time-played/time-played.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserFormComponent,
     StatHeaderComponent,
-    AchievementsComponent
+    AchievementsComponent,
+    TimePlayedComponent
   ],
   imports: [
     BrowserModule,

@@ -110,42 +110,125 @@ export class StatHeaderComponent implements OnInit {
   avatar;
   tier;
   userName;
+  statSetToShow = "competitive";
+  lastHeroSelected;
   initialLoad = true;
   showAllBool = false;
   totalPlaytime = 0;
+  prestige;
+  heroListCompetitive = [];
+  heroListQuickplay = [];
   heroList = [];
   heroStats = [];
   generalStats = [];
+  playtimeListCompetitive = [];
+  playtimeListQuickplay = [];
   playtimeList = [];
   playtimeListConcat = [];
   heroSelected = null;
   showBtnText = "Show All";
+  compStats = [];
+  quickplayStats = [];
   ngOnInit() {
   this.playerStats = this.formService.getPlayerStats();
+  this.level = this.playerStats.us.stats.competitive.overall_stats.level;
+  this.compRank = this.playerStats.us.stats.competitive.overall_stats.comprank;
+  this.avatar = this.playerStats.us.stats.competitive.overall_stats.avatar;
+  this.tier = this.playerStats.us.stats.competitive.overall_stats.tier;
+  this.userName = this.formService.getUserName();
+  this.prestige = this.playerStats.us.stats.competitive.overall_stats.prestige;
+
+  this.generateHeroLists();
   this.setStats();
+  this.setHeroStats();
+  }
+
+  generateHeroLists(){
+    let  obj = this.playerStats.us.heroes.stats.competitive;
+    this.heroListCompetitive = Object.keys(obj).map(function(key) {
+      let newHero = {name:key, details:obj[key]};
+      return newHero;
+    });
+
+    let  objQp = this.playerStats.us.heroes.stats.quickplay;
+    this.heroListQuickplay = Object.keys(objQp).map(function(key) {
+      let newHero = {name:key, details:objQp[key]};
+      return newHero;
+    });
+
+    let playtimeObj = this.playerStats.us.heroes.playtime.competitive;
+    this.playtimeListCompetitive = Object.keys(playtimeObj).map(function(key) {
+      let heroPlaytime = {name:key, playtime:playtimeObj[key]};
+      return heroPlaytime;
+    });
+
+    let playtimeObjQp = this.playerStats.us.heroes.playtime.quickplay;
+    this.playtimeListQuickplay = Object.keys(playtimeObjQp).map(function(key) {
+      let heroPlaytime = {name:key, playtime:playtimeObjQp[key]};
+      return heroPlaytime;
+    });
+
+    // for achievement cards
+      let compStatsObj = this.playerStats.us.stats.competitive.game_stats;
+      this.compStats = Object.keys(compStatsObj).map(function(key) {
+        let keyNoUnderscores = key.replace(/_/g," ");
+        let newStat = {name:keyNoUnderscores, details: compStatsObj[key]};
+        if (newStat.details % 1 !=0){
+              newStat.details = newStat.details.toFixed(2).toString() + " hours";
+        }
+            return newStat;
+      });
+    // for achievement cards
+      let quckplayStatsObj = this.playerStats.us.stats.quickplay.game_stats;
+      this.quickplayStats = Object.keys(quckplayStatsObj).map(function(key) {
+        let keyNoUnderscores = key.replace(/_/g," ");
+        let newStat = {name:keyNoUnderscores,  details: quckplayStatsObj[key]};
+        if (newStat.details % 1 !=0){
+              newStat.details = newStat.details.toFixed(2).toString() + " hours";
+        }
+        return newStat;
+      });
+  }
+
+  showQuickplayStats(hero){
+    this.statSetToShow="quickplay";
+
+    this.onCharSelect(hero);
+    console.log(this.statSetToShow);
 
   }
 
-  setBarColor(heroOrder){
-    if (heroOrder == 0)
-    {
-      return "progress-bar time-played-bar-fill bg-success";
-    }else if (heroOrder == 1)
-    {
-      return "progress-bar time-played-bar-fill bg-info";
-    }else if (heroOrder == 2)
-    {
-      return "progress-bar time-played-bar-fill bg-warning";
-    }else
-    {
-      return "progress-bar time-played-bar-fill bg-danger";
-    }
+  showCompetitiveStats(hero){
+    this.statSetToShow="competitive";
+
+    this.onCharSelect(hero);
+    console.log(this.statSetToShow);
+
+  }
+
+  isCompetitive(heroSelected){
+    let listContainsHero = false;
+    this.heroListCompetitive.forEach(function(hero){
+      if(hero.name === heroSelected.name){
+        listContainsHero = true;
+      }
+    });
+    return listContainsHero;
+  }
+  isQuickplay(heroSelected){
+    let listContainsHero = false;
+    this.heroListQuickplay.forEach(function(hero){
+      if(hero.name === heroSelected.name){
+        listContainsHero = true;
+      }
+    });
+    return listContainsHero;
   }
 
   showAll(){
     this.initialLoad = false;
     if (this.showAllBool){
-            this.showBtnText = "Show All"
+      this.showBtnText = "Show All"
       this.playtimeListConcat=[];
       for (let i = 0; i < 4; i++) {
           this.playtimeListConcat.push(this.playtimeList[i]);
@@ -158,7 +241,51 @@ export class StatHeaderComponent implements OnInit {
     }
   }
 
+  setStats() {
+    let playtimeObj;
+    if (this.statSetToShow === "competitive"){
+      this.heroList = this.heroListCompetitive;
+      this.playtimeList = this.playtimeListCompetitive;
+    } else {
+       this.heroList = this.heroListQuickplay;
+       this.playtimeList = this.playtimeListQuickplay;
+    }
+
+    let that = this;
+    if (this.heroSelected===null){
+      this.heroSelected=this.heroList[0];
+      this.playtimeList.forEach(function(hero){
+        that.totalPlaytime += hero.playtime;
+      });
+    }
+
+    this.sortList();
+  }
+
+  sortList(){
+    this.playtimeList.sort(function(a,b){
+      return b.playtime - a.playtime;
+    });
+
+    var first = this.heroSelected.name;
+    this.playtimeList.sort(function(a,b){
+      return a.name == first ? -1 : b.name === first? 1:0;
+    });
+
+    this.playtimeList = this.playtimeList.filter(function(hero){
+      return (hero.playtime > 0)
+    })
+
+    for (let i = 0; i < 4; i++) {
+        this.playtimeListConcat.push(this.playtimeList[i]);
+    };
+  }
+
   setHeroStats(){
+    this.heroStats = null;
+    this.generalStats = null;
+    console.log(this.heroSelected);
+
     let heroStatObj = this.heroSelected.details.hero_stats;
     this.heroStats=Object.keys(heroStatObj).map(function(key){
       let keyNoUnderscores = key.replace(/_/g," ");
@@ -174,60 +301,51 @@ export class StatHeaderComponent implements OnInit {
       //console.log(newStat);
       return newStat;
     });
-  }
-
-  setStats() {
-
-    let playtimeObj = this.playerStats.us.heroes.playtime.competitive;
-    this.playtimeList = Object.keys(playtimeObj).map(function(key) {
-      let heroPlaytime = {name:key, playtime:playtimeObj[key]};
-      return heroPlaytime;
-    });
-
-
-    this.playtimeList.sort(function(a,b){
-      return b.playtime - a.playtime;
-    })
-
-   this.playtimeList = this.playtimeList.filter(function(hero){
-     return (hero.playtime > 0)
-   })
-
-    let that = this;
-    this.playtimeList.forEach(function(hero){
-      that.totalPlaytime += hero.playtime;
-    });
-
-    for (let i = 0; i < 4; i++) {
-        that.playtimeListConcat.push(that.playtimeList[i]);
-    };
-
-
-    this.level = this.playerStats.us.stats.competitive.overall_stats.level;
-    this.compRank = this.playerStats.us.stats.competitive.overall_stats.comprank;
-    this.avatar = this.playerStats.us.stats.competitive.overall_stats.avatar;
-    this.tier = this.playerStats.us.stats.competitive.overall_stats.tier;
-    this.userName = this.formService.getUserName();
-
-    let obj = this.playerStats.us.heroes.stats.competitive;
-    this.heroList = Object.keys(obj).map(function(key) {
-      let newHero = {name:key, details:obj[key]};
-      return newHero;
-    });
-
-  this.heroSelected=this.heroList[0];
-
-  this.setHeroStats();
 
   }
 
   onCharSelect(hero){ //select a new character
+    this.heroSelected=null;
+
+    if (this.statSetToShow === "competitive"){
+      this.heroList = this.heroListCompetitive;
+      this.playtimeList = this.playtimeListCompetitive;
+    } else {
+       this.heroList = this.heroListQuickplay;
+       this.playtimeList = this.playtimeListQuickplay;
+    }
+
     for (let i = 0; i < this.heroList.length; i++) {
-        if (hero === this.heroList[i].name){
+        if (hero.name === this.heroList[i].name || hero ===this.heroList[i].name){
           this.heroSelected = this.heroList[i];
+          this.sortList();
+          break;
         }
     }
+
+    this.playtimeListConcat=[];
+    for (let i = 0; i < 4; i++) {
+        this.playtimeListConcat.push(this.playtimeList[i]);
+    };
+
     this.setHeroStats();
+
+  }
+
+  competitiveBtn(){
+    if (this.statSetToShow === "quickplay"){
+      return "btn btn-info btn-on"
+    } else {
+      return "btn btn-info btn-off"
+    }
+  }
+
+  quickplayBtn(){
+    if (this.statSetToShow === "competitive"){
+      return "btn btn-info btn-on"
+    } else {
+        return "btn btn-info btn-off"
+    }
   }
 
 }

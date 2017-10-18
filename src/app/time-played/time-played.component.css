@@ -1,0 +1,64 @@
+.char-time-played{
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+.show-all{
+  background-color: grey;
+  width: 200px;
+  text-align: center;
+}
+
+.centered-show-all{
+  margin-top: 10px;
+  color: white;
+  text-align: center;
+  margin-bottom: -20px;
+}
+.time-played{
+  font-size: 3em;
+  color: white;
+  margin-left: 20%;
+  margin-bottom: 15px;
+}
+.time-played-bar{
+  margin-top: 15px;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #c6c6c6;
+}
+.time-played-bar:hover{
+  margin-left: 18%;
+  margin-right: 18%;
+}
+.time-played-bar-text-playtime {
+    opacity:0;
+    -webkit-transition:.3s;
+    -moz-transition:.3s;
+    -o-transition:.3s;
+    -ms-transition:.3s;
+    transition:.5s;
+    font-size: 2.5em;
+    padding-top: 8px;
+    margin-left: 13%;
+    position: absolute;
+   text-shadow: 2px 2px 3px black;
+}
+.time-played-bar:hover .time-played-bar-text-playtime{
+  opacity: 1
+}
+.time-played-bar-text{
+  font-size: 2.5em;
+  padding-top: 8px;
+  position: absolute;
+ text-shadow: 2px 2px 3px black;
+
+}
+.time-played-bar-fill{
+  height: 30px;
+}
+
+
+.show-btn{
+  margin-left: 20px;
+}

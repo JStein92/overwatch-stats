@@ -1,10 +1,32 @@
 .card-deck{
   margin-bottom: 30px;
+
+}
+.card{
+  background-color: #262626;
+  padding: 20px;
+  margin-top: 10px;
 }
 .card-block{
-  padding: 20px;
+  padding: 5px;
 }
 .card-img-top{
   width: 50px;
   margin: 5px;
+}
+.highlights-header{
+  text-align: center;
+  color: white;
+}
+.card-title{
+  text-align: center;
+  color:#f9a11c;
+}
+.card-text{
+  text-align: center;
+  color: white;
+  font-size: 3em;
+}
+.refresh{
+  margin-left: 10px;
 }

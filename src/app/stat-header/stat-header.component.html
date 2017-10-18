@@ -1,26 +1,33 @@
 
 <div class="centered jumbotron" [@flyInFromTop]="'in'">
-  <h1> <img src="https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x02500000000006FA.png" alt="">{{userName}}</h1>
+  <h1> <img src="{{avatar}}" alt="">{{userName}}</h1>
 </div>
 
 
 <div class="header row d-flex justify-content-center"  [@flyInFromSide]="'in'">
   <div class="level-header">
-    <h1><span class="level">level </span>{{level}}</h1>
+    <h1><span class="level">level </span>{{level}} <span class="prestige" *ngIf="prestige > 0">x{{prestige}}</span></h1>
   </div>
   <div class="sr-header">
     <h1><span class="SR">SR </span>{{compRank}}</h1>
   </div>
 </div>
-<div class="select-character row d-flex justify-content-center"   [@flyInCharacterContainer]="'in'">
-  <select (change)="onCharSelect($event.target.value)">
-    <option *ngFor="let hero of heroList" value="{{hero.name}}">{{hero.name}}</option>
-  </select>
+
+<div *ngIf="heroSelected">
+  <div class="select-character row d-flex justify-content-center"   [@flyInCharacterContainer]="'in'" >
+
+    <select (change)="onCharSelect($event.target.value)">
+      <option *ngFor="let hero of heroList" value="{{hero.name}}" [selected] = "hero.name == heroSelected.name">{{hero.name}}</option>
+    </select>
+
+    <button *ngIf="isCompetitive(heroSelected)" [class] = "competitiveBtn()" type="button" name="button" (click)="showCompetitiveStats(heroSelected)">Competitive</button>
+    <button *ngIf="isQuickplay(heroSelected)" [class] = "quickplayBtn()" type="button" name="button" (click)="showQuickplayStats(heroSelected)">Quickplay</button>
+  </div>
 </div>
 
 <div class="container">
   <div class="character row">
-    <div class="col-sm-5 character-image-container"  [@flyInCharacterContainer]="'in'">
+    <div class="col-lg-5 character-image-container"  [@flyInCharacterContainer]="'in'">
       <img *ngIf="heroSelected.name == 'zarya'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/6/6d/Zarya-portrait.png?version=171366c33bccbd8cf64459ee9abda649">
       <img *ngIf="heroSelected.name == 'doomfist'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/1/15/Doomfist_Artwork.png/432px-Doomfist_Artwork.png?version=f62bcf96920499467a99c0215877fce8">
       <img *ngIf="heroSelected.name == 'genji'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/d/d8/Genji-portrait.png/552px-Genji-portrait.png?version=94e29d5122bcbb2d86b88e37517ff686">
@@ -34,7 +41,7 @@
       <img *ngIf="heroSelected.name == 'hanzo'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/a/a0/Hanzo-portrait.png/497px-Hanzo-portrait.png?version=17198d16ddac4e7d13e7487ef8cedafd">
       <img *ngIf="heroSelected.name == 'junkrat'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/9/99/Junkrat-Portrait.png/491px-Junkrat-Portrait.png?version=283ba1e114427c9da04eed898f47d6d4">
       <img *ngIf="heroSelected.name == 'mei'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/d/d0/Mei-portrait.png/336px-Mei-portrait.png?version=0c01b171a9fabcd4b852438f1af78c6d">
-      <img *ngIf="heroSelected.name == 'torbjörn'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/c/c5/Torbjorn-portrait.png/651px-Torbjorn-portrait.png?version=4490b10950a2c695bf4f9393db40934c">
+      <img *ngIf="heroSelected.name == 'torbjorn'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/c/c5/Torbjorn-portrait.png/651px-Torbjorn-portrait.png?version=4490b10950a2c695bf4f9393db40934c">
       <img *ngIf="heroSelected.name == 'widowmaker'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/4/4c/Widowmaker-portrait.png/380px-Widowmaker-portrait.png?version=26c3d076391890fa04af36867112550a">
       <img *ngIf="heroSelected.name == 'dva'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/b/b0/DVa-portrait.png/575px-DVa-portrait.png?version=0eff4097ac6a1152c25f753c681f6469">
       <img *ngIf="heroSelected.name == 'orisa'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/6/66/Orisa-portrait.png/724px-Orisa-portrait.png?version=4a2f0f5f38245789d1d3d6f64a6d2a5d">
@@ -50,12 +57,15 @@
     </div>
 
     <div class="col-lg-3" [@flyInCharacterStats]="'in'" style="z-index: 5">
-    <h4 class="card-title">{{heroSelected.name}}'s Stats</h4>
+    <h4 class="card-title">{{heroSelected.name}}'s Stats
+      <div class="btn-group" role="group">
+      </div>
+    </h4>
       <div class="character-deck  char-stat-block" id="style-8" >
         <div class="card stat-block">
 
           <ul class="list-group list-group-flush">
-            <li *ngFor="let heroStat of heroStats" class="list-group-item">{{heroStat.name}} : {{heroStat.details}}</li>
+            <li *ngFor="let heroStat of heroStats" class="list-group-item">{{heroStat.name}}: {{heroStat.details}}</li>
           </ul>
         </div>
       </div>
@@ -74,11 +84,6 @@
   </div>
 </div>
 
-<div class="char-time-played"  >
-  <div class="time-played-concat" [@fadeIn]="'in'">
-    <h1 class="time-played" [@fadeIn]="'in'">Time Played<button (click)="showAll()" type="button" class="btn btn-info show-btn" name="button">{{showBtnText}}</button></h1>
-      <div class="progress time-played-bar" *ngFor="let hero of playtimeListConcat, let i = index" [attr.data-index]="i">
-        <div [class] = " setBarColor(i)" [@shrinkOut2]="'in'" role="progressbar" [style.width.%]="(hero.playtime/totalPlaytime)*100">  <span [@fadeInFast]="'in'" class="time-played-bar-text">{{hero.name}}</span></div>
-      </div>
-    </div>
-</div>
+<app-time-played [playtimeListConcat] = "playtimeListConcat" [heroPlaytime] = "heroPlaytime" [totalPlaytime] = "totalPlaytime" [showBtnText] = "showBtnText" (showAllSender) = "showAll()"></app-time-played>
+
+  <app-achievements [compStats] = "compStats" [quickplayStats] = "quickplayStats"></app-achievements>

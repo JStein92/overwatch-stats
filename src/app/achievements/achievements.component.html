@@ -1,26 +1,27 @@
 <div class="container">
+  <div class="highlights-header" [@fadeIn1]="'in'">
+    <h1>Random Highlights <button class="btn btn-info refresh" type="button" (click)="generateHighlights()" name="button">Refresh</button></h1>
+  </div>
+
   <div class="card-deck">
   <div class="card"  [@fadeIn1]="'in'">
-    <img class="card-img-top" src="https://vignette.wikia.nocookie.net/overwatch/images/b/bd/Overwatch_line_art_logo_symbol-only.png/revision/latest?cb=20141107210951" alt="Card image cap">
-    <div class="card-block">
-      <h4 class="card-title">Player Highlight #1</h4>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-
+    <div class="card-block" >
+      <h2 class="card-title">{{highlightOne.name}}</h2>
+      <h3 class="card-text">{{highlightOne.details}}</h3>
     </div>
   </div>
+
   <div class="card"  [@fadeIn2]="'in'">
-    <img class="card-img-top" src="https://vignette.wikia.nocookie.net/overwatch/images/b/bd/Overwatch_line_art_logo_symbol-only.png/revision/latest?cb=20141107210951" alt="Card image cap">
     <div class="card-block">
-      <h4 class="card-title">Player Highlight #2</h4>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-
+      <h2 class="card-title">{{highlightTwo.name}}</h2>
+      <h3 class="card-text">{{highlightTwo.details}}</h3>
     </div>
   </div>
-  <div class="card" [@fadeIn3]="'in'">
-    <img class="card-img-top" src="https://vignette.wikia.nocookie.net/overwatch/images/b/bd/Overwatch_line_art_logo_symbol-only.png/revision/latest?cb=20141107210951" alt="Card image cap">
+
+  <div class="card"  [@fadeIn3]="'in'">
     <div class="card-block">
-      <h4 class="card-title">Player Highlight #3</h4>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <h2 class="card-title">{{highlightThree.name}}</h2>
+      <h3 class="card-text">{{highlightThree.details}}</h3>
     </div>
   </div>
 </div>
