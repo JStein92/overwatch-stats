@@ -1,4 +1,3 @@
-
 <div class="centered jumbotron" [@flyInFromTop]="'in'">
   <h1> <img src="{{avatar}}" alt="">{{userName}}</h1>
 </div>
@@ -15,11 +14,8 @@
 
 <div *ngIf="heroSelected">
   <div class="select-character row" [@flyInCharacterContainer]="'in'" >
-
     <div class="col-md-3">
-
     </div>
-
     <div class="col-md-3">
       <select (change)="onCharSelect($event.target.value)">
         <option *ngFor="let hero of heroList" value="{{hero.name}}" [selected] = "hero.name == heroSelected.name" class="select-box">{{hero.name}}</option>
@@ -28,12 +24,9 @@
 
     <div class="col-md-3">
       <button [class] = "competitiveBtn(heroSelected)" type="button" name="button" (click)="showCompetitiveStats(heroSelected)"><span *ngIf="isCompetitive(heroSelected)">Competitive</span><span *ngIf="!isCompetitive(heroSelected)">No Competitive Data</span></button>
-
       <button *ngIf="isQuickplay(heroSelected)" [class] = "quickplayBtn(heroSelected)" type="button" name="button" (click)="showQuickplayStats(heroSelected)"><span *ngIf="isQuickplay(heroSelected)">Quickplay</span><span *ngIf="!isQuickplay(heroSelected)">No Quickplay Data</span></button>
     </div>
-
     <div class="col-md-3">
-
     </div>
   </div>
 </div>
@@ -41,31 +34,31 @@
 <div class="container">
   <div class="character row">
     <div class="col-lg-5 character-image-container"  [@flyInCharacterContainer]="'in'">
-      <img *ngIf="heroSelected.name == 'zarya'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/6/6d/Zarya-portrait.png?version=171366c33bccbd8cf64459ee9abda649">
-      <img *ngIf="heroSelected.name == 'doomfist'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/1/15/Doomfist_Artwork.png/432px-Doomfist_Artwork.png?version=f62bcf96920499467a99c0215877fce8">
-      <img *ngIf="heroSelected.name == 'genji'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/d/d8/Genji-portrait.png/552px-Genji-portrait.png?version=94e29d5122bcbb2d86b88e37517ff686">
-      <img *ngIf="heroSelected.name == 'mccree'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/d/d2/Mccree-portrait.png/452px-Mccree-portrait.png?version=406614d736baf18b5326ad5ddbe3ea6f">
-      <img *ngIf="heroSelected.name == 'pharah'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/2/26/Pharah-portrait.png/458px-Pharah-portrait.png?version=06b2da106b153549baabfc10b6cd5ddf">
-      <img *ngIf="heroSelected.name == 'reaper'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/7/74/Reaper-portrait.png/467px-Reaper-portrait.png?version=48301c4272108d424500bf4bb77d55d3">
-      <img *ngIf="heroSelected.name == 'soldier76'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/e/e0/Soldier76-portrait.png/383px-Soldier76-portrait.png?version=84452a44759151a0b0cd950002d91d40">
-      <img *ngIf="heroSelected.name == 'sombra'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/c/c5/Sombra-portrait.png/600px-Sombra-portrait.png?version=53834c653bb87f0ff9ed15c3e1efe8e3">
-      <img *ngIf="heroSelected.name == 'tracer'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/8/81/Tracer-portrait.png/290px-Tracer-portrait.png?version=84237fc003d93b499a4909fd2060ae0c">
-      <img *ngIf="heroSelected.name == 'bastion'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/d/d0/Bastion-portrait.png/569px-Bastion-portrait.png?version=34f63d8e0d9f5fa7df7e904b18891db3">
-      <img *ngIf="heroSelected.name == 'hanzo'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/a/a0/Hanzo-portrait.png/497px-Hanzo-portrait.png?version=17198d16ddac4e7d13e7487ef8cedafd">
-      <img *ngIf="heroSelected.name == 'junkrat'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/9/99/Junkrat-Portrait.png/491px-Junkrat-Portrait.png?version=283ba1e114427c9da04eed898f47d6d4">
-      <img *ngIf="heroSelected.name == 'mei'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/d/d0/Mei-portrait.png/336px-Mei-portrait.png?version=0c01b171a9fabcd4b852438f1af78c6d">
-      <img *ngIf="heroSelected.name == 'torbjorn'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/c/c5/Torbjorn-portrait.png/651px-Torbjorn-portrait.png?version=4490b10950a2c695bf4f9393db40934c">
-      <img *ngIf="heroSelected.name == 'widowmaker'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/4/4c/Widowmaker-portrait.png/380px-Widowmaker-portrait.png?version=26c3d076391890fa04af36867112550a">
-      <img *ngIf="heroSelected.name == 'dva'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/b/b0/DVa-portrait.png/575px-DVa-portrait.png?version=0eff4097ac6a1152c25f753c681f6469">
-      <img *ngIf="heroSelected.name == 'orisa'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/6/66/Orisa-portrait.png/724px-Orisa-portrait.png?version=4a2f0f5f38245789d1d3d6f64a6d2a5d">
-      <img *ngIf="heroSelected.name == 'reinhardt'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/0/07/Reinhardt-portrait.png/648px-Reinhardt-portrait.png?version=76bdb0f41771b25b9b56904bb6863f80">
-      <img *ngIf="heroSelected.name == 'roadhog'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/c/ce/Roadhog-Portrait.png/590px-Roadhog-Portrait.png?version=24eadbcba614d3be9e330588fc99ce8f">
-      <img *ngIf="heroSelected.name == 'winston'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/b/b8/Winston-portrait.png/731px-Winston-portrait.png?version=e6dd00227f6e35da1c19b20562544def">
-      <img *ngIf="heroSelected.name == 'ana'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/7/76/Ana.png/246px-Ana.png?version=8fba16235e6edded27cf3763d2cf3ffe">
-      <img *ngIf="heroSelected.name == 'lucio'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/8/8c/Lucio-portrait.png/323px-Lucio-portrait.png?version=c717c95341796218aec4b9b29406c6f0">
-      <img *ngIf="heroSelected.name == 'mercy'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/d/d2/Mercy-portrait.png/654px-Mercy-portrait.png?version=d06b40a209046bb8bed5ffd4b258fda8">
-      <img *ngIf="heroSelected.name == 'symmetra'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/1/18/Symmetra-portrait.png/276px-Symmetra-portrait.png?version=2224cbc829c08fc21f82d981f0f0e6bd">
-      <img *ngIf="heroSelected.name == 'zenyatta'" [@fadeInCharacterPicture]="'in'" src="https://overwatch.gamepedia.com/media/overwatch.gamepedia.com/thumb/9/92/Zenyatta-portrait.png/462px-Zenyatta-portrait.png?version=3f0bb6f972e564ee7836c94396a02998">
+      <img *ngIf="heroSelected.name == 'zarya'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Zarya-portrait.png">
+      <img *ngIf="heroSelected.name == 'doomfist'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Doomfist-portrait.png">
+      <img *ngIf="heroSelected.name == 'genji'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Genji-portrait.png">
+      <img *ngIf="heroSelected.name == 'mccree'" [@fadeInCharacterPicture]="'in'"src="../assets/img/Mccree-portrait.png">
+      <img *ngIf="heroSelected.name == 'pharah'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Pharah-portrait.png">
+      <img *ngIf="heroSelected.name == 'reaper'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Reaper-portrait.png">
+      <img *ngIf="heroSelected.name == 'soldier76'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Soldier76-portrait.png">
+      <img *ngIf="heroSelected.name == 'sombra'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Sombra-portrait.png">
+      <img *ngIf="heroSelected.name == 'tracer'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Tracer-portrait.png">
+      <img *ngIf="heroSelected.name == 'bastion'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Bastion-portrait.png">
+      <img *ngIf="heroSelected.name == 'hanzo'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Hanzo-portrait.png">
+      <img *ngIf="heroSelected.name == 'junkrat'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Junkrat-portrait.png">
+      <img *ngIf="heroSelected.name == 'mei'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Mei-portrait.png">
+      <img *ngIf="heroSelected.name == 'torbjorn'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Torbjorn-portrait.png">
+      <img *ngIf="heroSelected.name == 'widowmaker'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Widowmaker-portrait.png">
+      <img *ngIf="heroSelected.name == 'dva'" [@fadeInCharacterPicture]="'in'" src="../assets/img/DVa-portrait.png">
+      <img *ngIf="heroSelected.name == 'orisa'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Orisa-portrait.png">
+      <img *ngIf="heroSelected.name == 'reinhardt'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Reinhardt-portrait.png">
+      <img *ngIf="heroSelected.name == 'roadhog'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Roadhog-portrait.png">
+      <img *ngIf="heroSelected.name == 'winston'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Winston-portrait.png">
+      <img *ngIf="heroSelected.name == 'ana'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Ana-portrait.png">
+      <img *ngIf="heroSelected.name == 'lucio'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Lucio-portrait.png">
+      <img *ngIf="heroSelected.name == 'mercy'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Mercy-portrait.png">
+      <img *ngIf="heroSelected.name == 'symmetra'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Symmetra-portrait.png">
+      <img *ngIf="heroSelected.name == 'zenyatta'" [@fadeInCharacterPicture]="'in'" src="../assets/img/Zenyatta-portrait.png">
 
     </div>
 
@@ -97,6 +90,8 @@
   </div>
 </div>
 
-<app-time-played [playtimeListConcat] = "playtimeListConcat" [heroPlaytime] = "heroPlaytime" [totalPlaytime] = "totalPlaytime" [showBtnText] = "showBtnText" (showAllSender) = "showAll()"></app-time-played>
+<app-time-played [heroSelected] = "heroSelected" [playtimeListConcat] = "playtimeListConcat" [totalPlaytime] = "totalPlaytime" [showBtnText] = "showBtnText" (showAllSender) = "showAll()" (selectCharacterSender) = "onCharSelect($event)"></app-time-played>
 
-  <app-achievements [compStats] = "compStats" [quickplayStats] = "quickplayStats"></app-achievements>
+<app-win-rate [heroSelected] = "heroSelected" [winRateList] = "winRateList" (selectCharacterSender) = "onCharSelect($event)" (showAllSender) = "showAllWinRate()" [showBtnText] = "showBtnTextWinRate"> </app-win-rate>
+
+<app-achievements [compStats] = "compStats" [quickplayStats] = "quickplayStats"></app-achievements>

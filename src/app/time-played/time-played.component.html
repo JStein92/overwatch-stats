@@ -1,8 +1,9 @@
 <div class="char-time-played"  >
   <div class="time-played-concat" [@fadeIn]="'in'">
     <h1 class="time-played" [@fadeIn]="'in'">Time Played<button (click)="showAll()" type="button" class="btn btn-info show-btn" name="button">{{showBtnText}}</button></h1>
-      <div class="progress time-played-bar" *ngFor="let hero of playtimeListConcat, let i = index" [attr.data-index]="i">
-        <div [class] = " setBarColor(i)" [@shrinkOut2]="'in'" role="progressbar" [style.width.%]="(hero.playtime/totalPlaytime)*100">  <span [@fadeInFast]="'in'" class="time-played-bar-text">{{hero.name}}</span>
+      <div *ngFor="let hero of playtimeListConcat, let i = index" [attr.data-index]="i" [class] = " setBarOutline(hero.name)" (click)="onCharSelect(hero)">
+        <div [class] = " setBarColor(i)" [@shrinkOut2]="'in'" role="progressbar" [style.width.%]="(hero.playtime/totalPlaytime)*100">
+        <span [@fadeInFast]="'in'" class="time-played-bar-text">{{hero.name}}</span>
         <span class="time-played-bar-text-playtime">{{hero.playtime.toFixed(2)}} hours</span>
       </div>
       </div>

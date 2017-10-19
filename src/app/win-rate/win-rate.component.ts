@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output,  EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {
   trigger,
   state,
@@ -9,9 +9,9 @@ import {
   AnimationEvent
 } from '@angular/animations';
 @Component({
-  selector: 'app-time-played',
-  templateUrl: './time-played.component.html',
-  styleUrls: ['./time-played.component.css'],
+  selector: 'app-win-rate',
+  templateUrl: './win-rate.component.html',
+  styleUrls: ['./win-rate.component.css'],
   animations: [
     trigger('fadeIn', [
       state('in', style({opacity: '100'})),
@@ -43,28 +43,17 @@ import {
     ])
   ]
 })
-export class TimePlayedComponent implements OnInit {
-@Input() playtimeListConcat;
-@Input() totalPlaytime;
-@Input() showBtnTextWinRate;
+export class WinRateComponent implements OnInit {
+@Input() winRateList;
+@Input() showBtnText;
 @Input() heroSelected;
 @Output() showAllSender = new EventEmitter();
 @Output() selectCharacterSender = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
-
   }
 
-  setBarOutline(heroName) {
-    let classString= "progress time-played-bar ";
-    if (heroName == this.heroSelected.name)
-    {
-      return classString += "selected-hero";
-    } else{
-      return classString;
-    }
-  }
 
   onCharSelect(hero){
     this.selectCharacterSender.emit(hero);
@@ -87,6 +76,16 @@ export class TimePlayedComponent implements OnInit {
     }else
     {
       return classString += "bg-danger";
+    }
+  }
+
+  setBarOutline(heroName) {
+    let classString= "progress time-played-bar ";
+    if (heroName == this.heroSelected.name)
+    {
+      return classString += "selected-hero";
+    } else{
+      return classString;
     }
   }
 

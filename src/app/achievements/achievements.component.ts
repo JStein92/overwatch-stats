@@ -43,36 +43,57 @@ export class AchievementsComponent implements OnInit {
   highlightOne;
   highlightTwo;
   highlightThree;
+  statToExclude;
 
   constructor() { }
 
   ngOnInit() {
+    this.statToExclude = this.findBadData();
+    console.log("EXCLUDE: " + this.statToExclude);
     this.generateHighlights()
-
   }
 
+  findBadData(){
+    for (let i = 0; i < this.compStats.length; i++) {
+        if (this.compStats[i].name.includes("overwatch"))
+        {
+          return i;
+        }
+    }
+    return -1;
+  }
+
+  randomExcluded(min, max, excluded) {
+    var n = Math.floor(Math.random() * (max-min) + min);
+    if (n >= excluded) n++;
+    return n;
+  }
+
+
   generateHighlights(){
-    let randNum1 = Math.floor(Math.random() * this.compStats.length);
-    while(randNum1 == 7){
-      Math.floor(Math.random() * this.compStats.length)
+    let max = this.compStats.length;
+    let excluded = this.statToExclude;
+
+    let randNum1 = this.randomExcluded(0,max,excluded);
+    let randNum2 = this.randomExcluded(0,max,excluded);
+    let randNum3 = this.randomExcluded(0,max,excluded);
+
+    if(this.compStats[randNum1] && this.compStats[randNum1].name)
+    {
+      //console.log(this.compStats[randNum1].name + " num:" + randNum1);
+      this.highlightOne = this.compStats[randNum1];
     }
-    let randNum2= Math.floor(Math.random() * this.compStats.length);
-    while(randNum2==randNum1 || randNum2 == 7){
-       randNum2 =  Math.floor(Math.random() * this.compStats.length)
+    if(this.compStats[randNum2] && this.compStats[randNum2].name)
+    {
+      //console.log(this.compStats[randNum2].name+ " num:" + randNum2);
+      this.highlightTwo = this.compStats[randNum2];
+    }
+    if(this.compStats[randNum3] && this.compStats[randNum3].name)
+    {
+    //  console.log( this.compStats[randNum3].name+ " num:" + randNum3);
+      this.highlightThree = this.compStats[randNum3];
     }
 
-    let randNum3= Math.floor(Math.random() * this.compStats.length);
-    while(randNum3==randNum2 || randNum3==randNum1 || randNum3 == 7){
-       randNum3 =  Math.floor(Math.random() * this.compStats.length)
-    }
-
-    console.log(this.compStats[randNum1].name + " num:" + randNum1);
-    console.log(this.compStats[randNum2].name+ " num:" + randNum2);
-    console.log( this.compStats[randNum3].name+ " num:" + randNum3);
-
-    this.highlightOne = this.compStats[randNum1];
-    this.highlightTwo = this.compStats[randNum2];
-    this.highlightThree = this.compStats[randNum3];
   }
 
 }

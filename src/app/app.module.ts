@@ -9,13 +9,15 @@ import { StatHeaderComponent } from './stat-header/stat-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AchievementsComponent } from './achievements/achievements.component';
 import { TimePlayedComponent } from './time-played/time-played.component';
+import { WinRateComponent } from './win-rate/win-rate.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserFormComponent,
     StatHeaderComponent,
     AchievementsComponent,
-    TimePlayedComponent
+    TimePlayedComponent,
+    WinRateComponent
   ],
   imports: [
     BrowserModule,
