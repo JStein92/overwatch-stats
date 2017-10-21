@@ -226,6 +226,13 @@ export class StatHeaderComponent implements OnInit {
       this.onCharSelect(hero);
       this.setStats();
       this.displayTimePlayedClick();
+
+      if (this.showAllBool)
+      {
+        this.playtimeListConcat = this.playtimeList;
+        this.winRateListConcat = this.winRateList;
+      }
+
     }
   }
 
@@ -234,6 +241,13 @@ export class StatHeaderComponent implements OnInit {
       this.statSetToShow="competitive";
       this.onCharSelect(hero);
       this.setStats();
+
+      if (this.showAllBool)
+      {
+        this.playtimeListConcat = this.playtimeList;
+        this.winRateListConcat = this.winRateList;
+      }
+
     }
   }
 
@@ -307,8 +321,6 @@ export class StatHeaderComponent implements OnInit {
         this.winRateList.push({name: this.heroListCompetitive[i].name, details: this.heroListCompetitive[i].details.general_stats.win_percentage})
     }
 
-
-
     this.sortList();
     this.sortListWinRate();
   }
@@ -341,9 +353,6 @@ export class StatHeaderComponent implements OnInit {
     for (let i = 0; i < 4; i++) {
         this.playtimeListConcat.push(this.playtimeList[i]);
     };
-
-
-
 
   }
 

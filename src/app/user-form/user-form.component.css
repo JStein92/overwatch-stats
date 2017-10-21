@@ -6,5 +6,7 @@
   font-size: .8em;
 }
 .justify-content-center{
-  margin-top:40%;
+position: absolute;
+bottom: 50%;
+left: 47%;
 }
