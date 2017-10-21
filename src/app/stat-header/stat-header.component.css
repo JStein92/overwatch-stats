@@ -126,15 +126,33 @@ font-size: 3em;
   border: 5px solid green;
 
 }
+.showAllBtn{
+  font-size: .3em;
+  margin-left: 15px;
+}
 .btn-disabled{
   border: 5px solid grey;
   background-color: grey;
   opacity: .5;
-
-    outline: none;
 }
-.btn-disabled:focus{
-  outline: none;
+
+.allHeroes{
+  font-size: 3em;
+  color: white;
+  margin-left: 20%;
+  margin-bottom: 5px;
+}
+.listOptions{
+  margin-left: 20%;
+}
+.listOptionBtn{
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+.list-option-btn-disabled{
+  background-color: grey;
+  opacity: .5;
+
 }
 
 #style-8::-webkit-scrollbar-track

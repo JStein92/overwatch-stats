@@ -90,8 +90,26 @@
   </div>
 </div>
 
-<app-time-played [heroSelected] = "heroSelected" [playtimeListConcat] = "playtimeListConcat" [totalPlaytime] = "totalPlaytime" [showBtnText] = "showBtnText" (showAllSender) = "showAll()" (selectCharacterSender) = "onCharSelect($event)"></app-time-played>
+<div [@fadeIn] = "'in'">
 
-<app-win-rate [heroSelected] = "heroSelected" [winRateList] = "winRateList" (selectCharacterSender) = "onCharSelect($event)" (showAllSender) = "showAllWinRate()" [showBtnText] = "showBtnTextWinRate"> </app-win-rate>
 
-<app-achievements [compStats] = "compStats" [quickplayStats] = "quickplayStats"></app-achievements>
+<h1 class="allHeroes">My Heroes <button type="button" class="btn btn-warning showAllBtn"(click) ="showAll()" name="button">{{showBtnText}}</button></h1>
+
+  <div class="listOptions">
+    <button type="button" [class]="listOptionBtnQuickplay()" name="button" (click) = "displayTimePlayedClick()">Time Played</button>
+
+    <button type="button" [class]="listOptionBtnCompetitive(heroSelected)" name="button" (click) = "displayWinRateClick(heroSelected)">Win Rate (Competitive)</button>
+  </div>
+
+  <div *ngIf = "displayWinRate">
+    <app-win-rate [heroSelected] = "heroSelected" [winRateList] = "winRateListConcat" (selectCharacterSender) = "onCharSelect($event)" [showBtnTextWinRate] = "showBtnTextWinRate"> </app-win-rate>
+  </div>
+
+  <div *ngIf = "displayTimePlayed">
+    <app-time-played [heroSelected] = "heroSelected" [playtimeListConcat] = "playtimeListConcat" [totalPlaytime] = "totalPlaytime" [showBtnText] = "showBtnText" (showAllSender) = "showAll()" (selectCharacterSender) = "onCharSelect($event)"></app-time-played>
+  </div>
+
+</div>
+
+
+<app-achievements *ngIf="heroSelected" [compStats] = "compStats" [quickplayStats] = "quickplayStats"></app-achievements>

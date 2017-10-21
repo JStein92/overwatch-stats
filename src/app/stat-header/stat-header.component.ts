@@ -133,6 +133,10 @@ export class StatHeaderComponent implements OnInit {
   winRateList = [];
   winRateListConcat = [];
   showAllBoolWinRate = false;
+
+  displayWinRate = false;
+  displayTimePlayed = true;
+
   ngOnInit() {
   this.playerStats = this.formService.getPlayerStats();
   this.level = this.playerStats.us.stats.competitive.overall_stats.level;
@@ -194,6 +198,26 @@ export class StatHeaderComponent implements OnInit {
       });
   }
 
+  displayWinRateClick(hero){
+    if (!this.displayWinRate){
+      if (this.isCompetitive(hero))
+      {
+        this.displayWinRate = true;
+        this.displayTimePlayed = false;
+        this.statSetToShow="competitive";
+        this.onCharSelect(hero);
+      }
+
+
+    }
+
+  }
+
+  displayTimePlayedClick(){
+    this.displayWinRate = false;
+    this.displayTimePlayed = true;
+  }
+
 
 
   showQuickplayStats(hero){
@@ -201,10 +225,7 @@ export class StatHeaderComponent implements OnInit {
       this.statSetToShow="quickplay";
       this.onCharSelect(hero);
       this.setStats();
-      if (this.showAllBool)
-      {
-        this.showAll();
-      }
+      this.displayTimePlayedClick();
     }
   }
 
@@ -213,10 +234,6 @@ export class StatHeaderComponent implements OnInit {
       this.statSetToShow="competitive";
       this.onCharSelect(hero);
       this.setStats();
-      if (this.showAllBool)
-      {
-        this.showAll();
-      }
     }
   }
 
@@ -243,32 +260,28 @@ export class StatHeaderComponent implements OnInit {
   showAll(){
     this.initialLoad = false;
     if (this.showAllBool){
+      console.log("showing less");
       this.showBtnText = "Show All"
       this.playtimeListConcat=[];
       this.sortList();
       this.showAllBool=false;
+      this.winRateListConcat=[];
+      this.sortListWinRate();
+
     } else{
-      this.showBtnText = "Show Less"
+
       this.sortList();
+      this.showBtnText = "Show Less"
       this.playtimeListConcat = this.playtimeList;
       this.showAllBool=true;
+      this.sortListWinRate();
+      this.winRateListConcat = this.winRateList;
+
+
     }
+
   }
 
-  showAllWinRate(){
-    this.initialLoad = false;
-    if (this.showAllBoolWinRate){
-      this.showBtnTextWinRate = "Show All"
-      this.playtimeListConcat=[];
-      this.sortList();
-      this.showAllBool=false;
-    } else{
-      this.showBtnTextWinRate = "Show Less"
-      this.sortList();
-      this.playtimeListConcat = this.playtimeList;
-      this.showAllBool=true;
-    }
-  }
 
   setStats() {
     let playtimeObj;
@@ -297,6 +310,22 @@ export class StatHeaderComponent implements OnInit {
 
 
     this.sortList();
+    this.sortListWinRate();
+  }
+
+  sortListWinRate(){
+    this.winRateListConcat = [];
+    this.winRateList = this.winRateList.filter(function(hero){
+      return (hero.details > 0)
+    })
+
+    this.winRateList.sort(function(a,b){
+      return b.details - a.details;
+    });
+
+    for (let i = 0; i < 4; i++) {
+        this.winRateListConcat.push(this.winRateList[i]);
+    };
   }
 
   sortList(){
@@ -313,18 +342,7 @@ export class StatHeaderComponent implements OnInit {
         this.playtimeListConcat.push(this.playtimeList[i]);
     };
 
-    this.winRateListConcat = [];
-    this.winRateList = this.winRateList.filter(function(hero){
-      return (hero.details > 0)
-    })
 
-    this.winRateList.sort(function(a,b){
-      return b.details - a.details;
-    });
-
-    for (let i = 0; i < 4; i++) {
-        this.winRateListConcat.push(this.winRateList[i]);
-    };
 
 
   }
@@ -407,6 +425,30 @@ export class StatHeaderComponent implements OnInit {
         return "btn btn-info btn-disabled"
       }
     }
+
+    listOptionBtnCompetitive(heroSelected) {
+      if(this.isCompetitive(heroSelected)){
+        if (this.displayWinRate)
+        {
+            return "btn btn-info listOptionBtn btn-off"
+        } else {
+            return "btn btn-info listOptionBtn btn-on"
+        }
+
+          } else {
+            return "btn btn-info listOptionBtn list-option-btn-disabled"
+          }
+        }
+
+      listOptionBtnQuickplay(){
+        if (this.displayTimePlayed)
+        {
+          return "btn btn-info listOptionBtn btn-off";
+        } else {
+          return "btn btn-info listOptionBtn btn-on";
+        }
+      }
+
 
 
 }

@@ -45,7 +45,7 @@ import {
 })
 export class WinRateComponent implements OnInit {
 @Input() winRateList;
-@Input() showBtnText;
+@Input() showBtnTextWinRate;
 @Input() heroSelected;
 @Output() showAllSender = new EventEmitter();
 @Output() selectCharacterSender = new EventEmitter();

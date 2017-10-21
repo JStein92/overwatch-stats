@@ -46,7 +46,7 @@ import {
 export class TimePlayedComponent implements OnInit {
 @Input() playtimeListConcat;
 @Input() totalPlaytime;
-@Input() showBtnTextWinRate;
+@Input() showBtnText;
 @Input() heroSelected;
 @Output() showAllSender = new EventEmitter();
 @Output() selectCharacterSender = new EventEmitter();
