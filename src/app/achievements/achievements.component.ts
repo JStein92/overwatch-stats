@@ -44,7 +44,7 @@ export class AchievementsComponent implements OnInit {
   highlightTwo;
   highlightThree;
   statToExclude;
-
+  highlightsReady = false;
   constructor() { }
 
   ngOnInit() {
@@ -93,6 +93,8 @@ export class AchievementsComponent implements OnInit {
     //  console.log( this.compStats[randNum3].name+ " num:" + randNum3);
       this.highlightThree = this.compStats[randNum3];
     }
+
+    this.highlightsReady = true;
 
   }
 

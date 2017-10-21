@@ -14,6 +14,7 @@ export class UserFormComponent implements OnInit {
   tier;
   playerName;
   doneSearching;
+  errorReturned;
   playerStats;
   constructor(private formService : FormService) {
   }
@@ -31,9 +32,13 @@ searching;
         },
       userData => {
           console.log("ERROR: ",userData);
+          this.errorReturned = userData;
+          this.doneSearching=false;
+          this.searching=false;
       },
       () => {
       //    console.log("Completed");
+      this.errorReturned=false;
           this.formService.setPlayerStats(this.playerStats, this.playerName);
           this.doneSearching=true;
       }

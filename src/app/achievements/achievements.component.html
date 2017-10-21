@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="highlightsReady">
   <div class="highlights-header" [@fadeIn1]="'in'">
     <h1>Random Highlights <button class="btn btn-info refresh" type="button" (click)="generateHighlights()" name="button">Refresh</button></h1>
   </div>

@@ -10,3 +10,47 @@ position: absolute;
 bottom: 50%;
 left: 47%;
 }
+.error{
+  width: 100%;
+}
+.container{
+  position: absolute;
+  top: 30%;
+  left: 15%;
+
+}
+#user-form{
+  background-color: #25272b;
+  padding: 60px;
+  border-radius: 30px;
+  text-align: center;
+  color: white;
+  font-size: 2em;
+}
+#user-form input{
+  height:3em;
+}
+
+.sub-header{
+  color: white;
+}
+.stat-header{
+  background-color: #25272b;
+  width: 100%;
+  font-size: 4em;
+  color:white;
+  text-shadow: 2px 2px 6px black;
+}
+.playerName{
+  text-align: center;
+}
+.playerIcon{
+
+}
+.info-block{
+  color: white;
+  background-color:#3b414f;
+}
+.info-block{
+  padding: 10px;
+}
