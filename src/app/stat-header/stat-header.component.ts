@@ -110,34 +110,41 @@ export class StatHeaderComponent implements OnInit {
   avatar;
   tier;
   userName;
-  statSetToShow = "competitive";
-  lastHeroSelected;
-  initialLoad = true;
-  showAllBool = false;
-  totalPlaytime = 0;
   prestige;
-  heroListCompetitive = [];
-  heroListQuickplay = [];
-  heroList = [];
-  heroStats = [];
-  generalStats = [];
-  playtimeListCompetitive = [];
-  playtimeListQuickplay = [];
-  playtimeList = [];
-  playtimeListConcat = [];
-  heroSelected = null;
-  showBtnText = "Show All";
-  showBtnTextWinRate = "Show All";
-  compStats = [];
-  quickplayStats = [];
-  winRateList = [];
-  winRateListConcat = [];
-  showAllBoolWinRate = false;
 
+  statSetToShow = "competitive"; // show competitive or quickplay?
+  showAllBool = false; //used to toggle the "show all/show less" btn for the My Heroes sections
+  totalPlaytime = 0; //used to generate bar % for playtime
+
+  heroListCompetitive = []; // all heroes the user has played in competitive
+  heroListQuickplay = [];// all heroes the user has played in QP
+  heroList = []; // the list to show, changes on whether user selects "quickplay" or "competitive"
+
+  heroStats = []; //special stats box
+  generalStats = []; // general stats box
+
+  playtimeListCompetitive = []; //list of playtimes in comp
+  playtimeListQuickplay = []; //list of playtimes in QP
+  playtimeList = []; //the list to use, changes on whether "quckplay" or "competitive" is selected
+  playtimeListConcat = []; //shortened list of playtimeList
+  playtimeListToShow= [];
+
+  heroSelected = null; //current hero selected
+
+  showBtnText = "Show All"; //btn text that toggles for "my heroes" lists
+
+  compStats = []; // for highlights
+  quickplayStats = []; //for highlight cards
+
+  winRateList = []; //win rate list for competitive only
+  winRateListConcat = []; //short version of win rate list
+  winRateListToShow = [];
+
+  //which filter to use?
   displayWinRate = false;
   displayTimePlayed = true;
 
-  ngOnInit() {
+  ngOnInit() { //set persistent stats and generate data needed for initial load
   this.playerStats = this.formService.getPlayerStats();
   this.level = this.playerStats.us.stats.competitive.overall_stats.level;
   this.compRank = this.playerStats.us.stats.competitive.overall_stats.comprank;
@@ -146,12 +153,23 @@ export class StatHeaderComponent implements OnInit {
   this.userName = this.formService.getUserName();
   this.prestige = this.playerStats.us.stats.competitive.overall_stats.prestige;
 
-  this.generateHeroLists();
-  this.setStats();
+  this.generateHeroLists(); //first create all the arrays needed
+
+  this.setStats(); // set what stats to show
+  this.sortLists(); //arrange playtime and winrate lists
+
+  let that = this;
+  if (this.heroSelected===null){ // for initial load, get total playtime and assign hero selected
+    this.heroSelected=this.heroList[0];
+    this.playtimeList.forEach(function(hero){
+      that.totalPlaytime += hero.playtime;
+    });
+  }
+
   this.setHeroStats();
   }
 
-  generateHeroLists(){
+  generateHeroLists(){ //loop through varios JSON objs and make arrays to use later
     let  obj = this.playerStats.us.heroes.stats.competitive;
     this.heroListCompetitive = Object.keys(obj).map(function(key) {
       let newHero = {name:key, details:obj[key]};
@@ -196,62 +214,50 @@ export class StatHeaderComponent implements OnInit {
         }
         return newStat;
       });
-  }
 
-  displayWinRateClick(hero){
-    if (!this.displayWinRate){
-      if (this.isCompetitive(hero))
-      {
-        this.displayWinRate = true;
-        this.displayTimePlayed = false;
-        this.statSetToShow="competitive";
-        this.onCharSelect(hero);
+      this.winRateList = [];
+      for (let i = 0; i < this.heroListCompetitive.length; i++) {
+          this.winRateList.push({name: this.heroListCompetitive[i].name, details: this.heroListCompetitive[i].details.general_stats.win_percentage})
       }
-
-
-    }
-
   }
 
-  displayTimePlayedClick(){
+  displayWinRateClick(hero){ //user selects Win Rate as the list they want to see.
+    if (!this.displayWinRate){
+      if (this.isCompetitive(hero)) // if the current hero selected is viable for competitive...
+      {
+        this.displayWinRate = true; //set bool to true to show win rate list
+        this.displayTimePlayed = false;
+        this.statSetToShow="competitive"; //show competitive stats
+        this.onCharSelect(hero); // "select" hero to get competitive stat blocks
+      }
+    }
+  }
+
+  displayTimePlayedClick(){ //simpler function since every hero has time played
     this.displayWinRate = false;
     this.displayTimePlayed = true;
   }
 
-
-
-  showQuickplayStats(hero){
-    if (this.isQuickplay(hero)){
+  showQuickplayStats(hero){ //quickplay btn is clicked
+    if (this.isQuickplay(hero) && this.statSetToShow!="quickplay"){ //if hero exists in quickplay
       this.statSetToShow="quickplay";
-      this.onCharSelect(hero);
-      this.setStats();
-      this.displayTimePlayedClick();
+      this.onCharSelect(hero); //refresh stat blocks to show qp stats
+      this.setStats(); //set hero time played and hero lists to either "quickplay" or "competitive" depending on statSetToShow
 
-      if (this.showAllBool)
-      {
-        this.playtimeListConcat = this.playtimeList;
-        this.winRateListConcat = this.winRateList;
-      }
+      this.displayTimePlayedClick(); //switch to time played (as QP doesn't track win rate)
 
     }
   }
 
-  showCompetitiveStats(hero){
-    if (this.isCompetitive(hero)){
+  showCompetitiveStats(hero){ //competitive btn is clicked
+    if (this.isCompetitive(hero)  && this.statSetToShow!="competitive"){
       this.statSetToShow="competitive";
-      this.onCharSelect(hero);
+      this.onCharSelect(hero); //refresh stat blocks to show competitive stats
       this.setStats();
-
-      if (this.showAllBool)
-      {
-        this.playtimeListConcat = this.playtimeList;
-        this.winRateListConcat = this.winRateList;
-      }
-
     }
   }
 
-  isCompetitive(heroSelected){
+  isCompetitive(heroSelected){ //checks to see if hero exists in competitive list
     let listContainsHero = false;
     this.heroListCompetitive.forEach(function(hero){
       if(hero.name === heroSelected.name){
@@ -261,7 +267,7 @@ export class StatHeaderComponent implements OnInit {
     return listContainsHero;
   }
 
-  isQuickplay(heroSelected){
+  isQuickplay(heroSelected){ //checks if hero exists in QP list
     let listContainsHero = false;
     this.heroListQuickplay.forEach(function(hero){
       if(hero.name === heroSelected.name){
@@ -271,62 +277,62 @@ export class StatHeaderComponent implements OnInit {
     return listContainsHero;
   }
 
-  showAll(){
-    this.initialLoad = false;
+  showAll(){ //called when "show ___" btn is clicked, toggles between states
     if (this.showAllBool){
-      console.log("showing less");
-      this.showBtnText = "Show All"
-      this.playtimeListConcat=[];
-      this.sortList();
       this.showAllBool=false;
-      this.winRateListConcat=[];
-      this.sortListWinRate();
+      this.showBtnText = "Show All"
+
+      this.playtimeListToShow = this.playtimeListConcat;
+      this.winRateListToShow = this.winRateListConcat;
 
     } else{
-
-      this.sortList();
-      this.showBtnText = "Show Less"
-      this.playtimeListConcat = this.playtimeList;
       this.showAllBool=true;
-      this.sortListWinRate();
-      this.winRateListConcat = this.winRateList;
+      this.showBtnText = "Show Less"
 
-
+      this.playtimeListToShow = this.playtimeList;
+      this.winRateListToShow = this.winRateList;
     }
 
   }
 
 
   setStats() {
-    let playtimeObj;
-    if (this.statSetToShow === "competitive"){
+    if (this.statSetToShow === "competitive"){ //assign heroList and playtimeList, which we use later to loop through and find heroSelected
       this.heroList = this.heroListCompetitive;
       this.playtimeList = this.playtimeListCompetitive;
     } else {
        this.heroList = this.heroListQuickplay;
        this.playtimeList = this.playtimeListQuickplay;
+    };
+
+    if (this.showAllBool){ // we call this here because setStats() is called when user selects either competitive or QP to show - and we need to assign the ListToShow to the appropriate list
+      this.playtimeListToShow = this.playtimeList;
+      this.winRateListToShow = this.winRateList;
+
+    } else{
+      this.playtimeListToShow = this.playtimeListConcat;
+      this.winRateListToShow = this.winRateListConcat;
     }
-
-    let that = this;
-    if (this.heroSelected===null){
-      this.heroSelected=this.heroList[0];
-      this.playtimeList.forEach(function(hero){
-        that.totalPlaytime += hero.playtime;
-      });
-    }
-
-    this.winRateList = [];
-
-    for (let i = 0; i < this.heroListCompetitive.length; i++) {
-        this.winRateList.push({name: this.heroListCompetitive[i].name, details: this.heroListCompetitive[i].details.general_stats.win_percentage})
-    }
-
-    this.sortList();
-    this.sortListWinRate();
   }
 
-  sortListWinRate(){
-    this.winRateListConcat = [];
+
+  sortLists(){ //sort lists by playtime/win rate, and makes concatinated lists
+    this.playtimeListCompetitive.filter(function(hero){
+      return (hero.playtime > 0)
+    })
+
+    this.playtimeListCompetitive.sort(function(a,b){
+      return b.playtime - a.playtime;
+    });
+
+    this.playtimeListQuickplay.filter(function(hero){
+      return (hero.playtime > 0)
+    })
+
+    this.playtimeListQuickplay.sort(function(a,b){
+      return b.playtime - a.playtime;
+    });
+
     this.winRateList = this.winRateList.filter(function(hero){
       return (hero.details > 0)
     })
@@ -336,33 +342,18 @@ export class StatHeaderComponent implements OnInit {
     });
 
     for (let i = 0; i < 4; i++) {
+      this.playtimeListConcat.push(this.playtimeList[i]);
+    };
+    for (let i = 0; i < 4; i++) {
         this.winRateListConcat.push(this.winRateList[i]);
     };
-  }
-
-  sortList(){
-    this.playtimeListConcat = [];
-    this.playtimeList = this.playtimeList.filter(function(hero){
-      return (hero.playtime > 0)
-    })
-
-    this.playtimeList.sort(function(a,b){
-      return b.playtime - a.playtime;
-    });
-
-    for (let i = 0; i < 4; i++) {
-        this.playtimeListConcat.push(this.playtimeList[i]);
-    };
 
   }
 
-  setHeroStats(){
-    this.heroStats = null;
-    this.generalStats = null;
-
+  setHeroStats(){ //gets data for individual heroes on demand
     let heroStatObj = this.heroSelected.details.hero_stats;
-    this.heroStats=Object.keys(heroStatObj).map(function(key){
-      let keyNoUnderscores = key.replace(/_/g," ");
+    this.heroStats=Object.keys(heroStatObj).map(function(key){ //loop through JSON obj to get stats
+      let keyNoUnderscores = key.replace(/_/g," "); // replace underscores with spaces
       let newStat = {name:keyNoUnderscores, details:heroStatObj[key]};
       //console.log(newStat);
       return newStat;
@@ -376,11 +367,9 @@ export class StatHeaderComponent implements OnInit {
       return newStat;
     });
 
-
     this.heroStats.sort(function(a,b){
         return (a.name < b.name) ? -1 : (a.name  > b.name) ? 1 : 0;
     })
-
 
     this.generalStats.sort(function(a,b){
         return (a.name < b.name) ? -1 : (a.name  > b.name) ? 1 : 0;
@@ -389,15 +378,7 @@ export class StatHeaderComponent implements OnInit {
   }
 
   onCharSelect(hero){ //select a new character
-    this.heroSelected=null;
-
-    if (this.statSetToShow === "competitive"){
-      this.heroList = this.heroListCompetitive;
-      this.playtimeList = this.playtimeListCompetitive;
-    } else {
-       this.heroList = this.heroListQuickplay;
-       this.playtimeList = this.playtimeListQuickplay;
-    }
+    this.setStats(); // to refresh character stat blocks instantly
 
     for (let i = 0; i < this.heroList.length; i++) {
         if (hero.name === this.heroList[i].name || hero ===this.heroList[i].name){
@@ -405,9 +386,7 @@ export class StatHeaderComponent implements OnInit {
           break;
         }
     }
-
     this.setHeroStats();
-
   }
 
   competitiveBtn(heroSelected){

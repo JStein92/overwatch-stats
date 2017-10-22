@@ -44,10 +44,8 @@ import {
   ]
 })
 export class WinRateComponent implements OnInit {
-@Input() winRateList;
-@Input() showBtnTextWinRate;
+@Input() winRateListToShow;
 @Input() heroSelected;
-@Output() showAllSender = new EventEmitter();
 @Output() selectCharacterSender = new EventEmitter();
   constructor() { }
 
@@ -89,8 +87,5 @@ export class WinRateComponent implements OnInit {
     }
   }
 
-  showAll(){
-    this.showAllSender.emit();
-  }
 
 }

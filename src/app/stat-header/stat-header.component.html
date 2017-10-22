@@ -92,7 +92,6 @@
 
 <div [@fadeIn] = "'in'">
 
-
 <h1 class="allHeroes">My Heroes <button type="button" class="btn btn-warning showAllBtn"(click) ="showAll()" name="button">{{showBtnText}}</button></h1>
 
   <div class="listOptions">
@@ -102,14 +101,14 @@
   </div>
 
   <div *ngIf = "displayWinRate">
-    <app-win-rate [heroSelected] = "heroSelected" [winRateList] = "winRateListConcat" (selectCharacterSender) = "onCharSelect($event)" [showBtnTextWinRate] = "showBtnTextWinRate"> </app-win-rate>
+    <app-win-rate [heroSelected] = "heroSelected" [winRateListToShow] = "winRateListToShow" (selectCharacterSender) = "onCharSelect($event)"> </app-win-rate>
   </div>
 
   <div *ngIf = "displayTimePlayed">
-    <app-time-played [heroSelected] = "heroSelected" [playtimeListConcat] = "playtimeListConcat" [totalPlaytime] = "totalPlaytime" [showBtnText] = "showBtnText" (showAllSender) = "showAll()" (selectCharacterSender) = "onCharSelect($event)"></app-time-played>
+    <app-time-played [heroSelected] = "heroSelected" [playtimeListToShow] = "playtimeListToShow" [totalPlaytime] = "totalPlaytime"  (selectCharacterSender) =  "onCharSelect($event)"></app-time-played>
   </div>
 
 </div>
 
 
-<app-achievements *ngIf="heroSelected" [compStats] = "compStats" [quickplayStats] = "quickplayStats"></app-achievements>
+<app-highlights *ngIf="heroSelected" [compStats] = "compStats" [quickplayStats] = "quickplayStats"></app-highlights>

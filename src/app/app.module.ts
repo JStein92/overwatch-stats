@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { StatHeaderComponent } from './stat-header/stat-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AchievementsComponent } from './achievements/achievements.component';
+import { HighlightsComponent } from './highlights/highlights.component';
 import { TimePlayedComponent } from './time-played/time-played.component';
 import { WinRateComponent } from './win-rate/win-rate.component';
 @NgModule({
@@ -15,7 +15,7 @@ import { WinRateComponent } from './win-rate/win-rate.component';
     AppComponent,
     UserFormComponent,
     StatHeaderComponent,
-    AchievementsComponent,
+    HighlightsComponent,
     TimePlayedComponent,
     WinRateComponent
   ],

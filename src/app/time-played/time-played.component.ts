@@ -44,11 +44,9 @@ import {
   ]
 })
 export class TimePlayedComponent implements OnInit {
-@Input() playtimeListConcat;
+@Input() playtimeListToShow;
 @Input() totalPlaytime;
-@Input() showBtnText;
 @Input() heroSelected;
-@Output() showAllSender = new EventEmitter();
 @Output() selectCharacterSender = new EventEmitter();
   constructor() { }
 
@@ -90,8 +88,5 @@ export class TimePlayedComponent implements OnInit {
     }
   }
 
-  showAll(){
-    this.showAllSender.emit();
-  }
 
 }
