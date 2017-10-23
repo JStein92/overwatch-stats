@@ -126,7 +126,8 @@ export class StatHeaderComponent implements OnInit {
   playtimeListCompetitive = []; //list of playtimes in comp
   playtimeListQuickplay = []; //list of playtimes in QP
   playtimeList = []; //the list to use, changes on whether "quckplay" or "competitive" is selected
-  playtimeListConcat = []; //shortened list of playtimeList
+  playtimeListCompetitiveConcat = []; //shortened list of playtimeListCompetitive
+  playtimeListQuickplayConcat = [];
   playtimeListToShow= [];
 
   heroSelected = null; //current hero selected
@@ -154,9 +155,9 @@ export class StatHeaderComponent implements OnInit {
   this.prestige = this.playerStats.us.stats.competitive.overall_stats.prestige;
 
   this.generateHeroLists(); //first create all the arrays needed
-
-  this.setStats(); // set what stats to show
+    this.setStats();
   this.sortLists(); //arrange playtime and winrate lists
+
 
   let that = this;
   if (this.heroSelected===null){ // for initial load, get total playtime and assign hero selected
@@ -165,6 +166,8 @@ export class StatHeaderComponent implements OnInit {
       that.totalPlaytime += hero.playtime;
     });
   }
+
+  this.onCharSelect(this.heroSelected);
 
   this.setHeroStats();
   }
@@ -242,10 +245,7 @@ export class StatHeaderComponent implements OnInit {
     if (this.isQuickplay(hero) && this.statSetToShow!="quickplay"){ //if hero exists in quickplay
       this.statSetToShow="quickplay";
       this.onCharSelect(hero); //refresh stat blocks to show qp stats
-      this.setStats(); //set hero time played and hero lists to either "quickplay" or "competitive" depending on statSetToShow
-
       this.displayTimePlayedClick(); //switch to time played (as QP doesn't track win rate)
-
     }
   }
 
@@ -253,7 +253,7 @@ export class StatHeaderComponent implements OnInit {
     if (this.isCompetitive(hero)  && this.statSetToShow!="competitive"){
       this.statSetToShow="competitive";
       this.onCharSelect(hero); //refresh stat blocks to show competitive stats
-      this.setStats();
+
     }
   }
 
@@ -282,10 +282,15 @@ export class StatHeaderComponent implements OnInit {
       this.showAllBool=false;
       this.showBtnText = "Show All"
 
-      this.playtimeListToShow = this.playtimeListConcat;
+      if (this.statSetToShow==="competitive"){
+        this.playtimeListToShow = this.playtimeListCompetitiveConcat;
+      } else {
+        this.playtimeListToShow = this.playtimeListQuickplayConcat;
+      }
+
       this.winRateListToShow = this.winRateListConcat;
 
-    } else{
+    } else{ //showing all
       this.showAllBool=true;
       this.showBtnText = "Show Less"
 
@@ -300,24 +305,34 @@ export class StatHeaderComponent implements OnInit {
     if (this.statSetToShow === "competitive"){ //assign heroList and playtimeList, which we use later to loop through and find heroSelected
       this.heroList = this.heroListCompetitive;
       this.playtimeList = this.playtimeListCompetitive;
+
+      if (this.showAllBool){
+          this.playtimeListToShow = this.playtimeList;
+          this.winRateListToShow = this.winRateList;
+      } else {
+          this.playtimeListToShow = this.playtimeListCompetitiveConcat;
+      }
+
     } else {
        this.heroList = this.heroListQuickplay;
        this.playtimeList = this.playtimeListQuickplay;
+
+       if (this.showAllBool){
+           this.winRateListToShow = this.winRateList;
+           this.playtimeListToShow = this.playtimeList;
+       } else {
+         console.log("show playtimeListQuickplayConcat");
+         console.log(this.playtimeListQuickplayConcat);
+          this.playtimeListToShow = this.playtimeListQuickplayConcat;
+          this.winRateListToShow = this.winRateListConcat;
+       }
     };
 
-    if (this.showAllBool){ // we call this here because setStats() is called when user selects either competitive or QP to show - and we need to assign the ListToShow to the appropriate list
-      this.playtimeListToShow = this.playtimeList;
-      this.winRateListToShow = this.winRateList;
-
-    } else{
-      this.playtimeListToShow = this.playtimeListConcat;
-      this.winRateListToShow = this.winRateListConcat;
-    }
   }
 
 
   sortLists(){ //sort lists by playtime/win rate, and makes concatinated lists
-    this.playtimeListCompetitive.filter(function(hero){
+    this.playtimeListCompetitive = this.playtimeListCompetitive.filter(function(hero){
       return (hero.playtime > 0)
     })
 
@@ -325,7 +340,7 @@ export class StatHeaderComponent implements OnInit {
       return b.playtime - a.playtime;
     });
 
-    this.playtimeListQuickplay.filter(function(hero){
+    this.playtimeListQuickplay = this.playtimeListQuickplay.filter(function(hero){
       return (hero.playtime > 0)
     })
 
@@ -342,10 +357,13 @@ export class StatHeaderComponent implements OnInit {
     });
 
     for (let i = 0; i < 4; i++) {
-      this.playtimeListConcat.push(this.playtimeList[i]);
+      this.playtimeListCompetitiveConcat.push(this.playtimeListCompetitive[i]);
     };
     for (let i = 0; i < 4; i++) {
-        this.winRateListConcat.push(this.winRateList[i]);
+      this.playtimeListQuickplayConcat.push(this.playtimeListQuickplay[i]);
+    };
+    for (let i = 0; i < 4; i++) {
+      this.winRateListConcat.push(this.winRateList[i]);
     };
 
   }
