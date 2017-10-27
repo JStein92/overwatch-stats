@@ -155,9 +155,8 @@ export class StatHeaderComponent implements OnInit {
   this.prestige = this.playerStats.us.stats.competitive.overall_stats.prestige;
 
   this.generateHeroLists(); //first create all the arrays needed
-    this.setStats();
+  this.setStats();
   this.sortLists(); //arrange playtime and winrate lists
-
 
   let that = this;
   if (this.heroSelected===null){ // for initial load, get total playtime and assign hero selected
@@ -220,7 +219,7 @@ export class StatHeaderComponent implements OnInit {
 
       this.winRateList = [];
       for (let i = 0; i < this.heroListCompetitive.length; i++) {
-          this.winRateList.push({name: this.heroListCompetitive[i].name, details: this.heroListCompetitive[i].details.general_stats.win_percentage})
+          this.winRateList.push({name: this.heroListCompetitive[i].name, details: (this.heroListCompetitive[i].details.general_stats.win_percentage*100).toFixed(0)})
       }
   }
 
@@ -228,10 +227,12 @@ export class StatHeaderComponent implements OnInit {
     if (!this.displayWinRate){
       if (this.isCompetitive(hero)) // if the current hero selected is viable for competitive...
       {
-        this.displayWinRate = true; //set bool to true to show win rate list
+        console.log(hero);
         this.displayTimePlayed = false;
         this.statSetToShow="competitive"; //show competitive stats
         this.onCharSelect(hero); // "select" hero to get competitive stat blocks
+        this.displayWinRate = true; //set bool to true to show win rate list
+        console.log(this.winRateListToShow);
       }
     }
   }
@@ -311,6 +312,7 @@ export class StatHeaderComponent implements OnInit {
           this.winRateListToShow = this.winRateList;
       } else {
           this.playtimeListToShow = this.playtimeListCompetitiveConcat;
+          this.winRateListToShow = this.winRateListConcat;
       }
 
     } else {
