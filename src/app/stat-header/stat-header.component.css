@@ -12,13 +12,13 @@
   padding-top: 12px;
   z-index: 2;
   margin: 5px;
+  text-align: center;
 
 }
 .select-character select{
     background-color: #262626;
     color: white;
     padding: 2px;
-
 }
 .prestige{
   font-size: .5em;
@@ -44,6 +44,7 @@
   background-color: #29282b;
   text-align: center;
   width: 100%;
+  margin: 0;
 }
 .character{
   margin: 15px;
@@ -80,10 +81,11 @@ font-size: 3em;
 .card-block{
   padding: 10px;
 }
-.level, .SR{
+.level, .SR, .no-rank{
   font-size: .5em;
   color: #eaeaea;
 }
+
 .level-header{
   border-right: 6px solid #262626;
   padding-right: 30px;

@@ -1,6 +1,6 @@
 import { OverwatchSitePage } from './app.po';
 
-describe('overwatch-site App', () => {
+describe('overwatch-stats App', () => {
   let page: OverwatchSitePage;
 
   beforeEach(() => {

@@ -6,18 +6,16 @@
   font-size: .8em;
 }
 .justify-content-center{
-position: absolute;
-bottom: 50%;
-left: 47%;
+  margin: auto;
+  margin-top: 400px;
 }
 .error{
   width: 100%;
 }
-.container{
-  position: absolute;
-  top: 30%;
-  left: 15%;
-
+.search {
+  width: 400px;
+  margin: auto;
+  margin-top: 200px;
 }
 .example-bnetId{
   font-size: .6em;
@@ -34,7 +32,6 @@ left: 47%;
 #user-form input{
   height:3em;
 }
-
 .sub-header{
   color: white;
 }
