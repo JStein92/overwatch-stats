@@ -84,7 +84,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "@font-face { font-family: \"bignoodletoo\"; src: url(" + __webpack_require__("../../../../../src/assets/fonts/bignoodletoo.ttf") + "); }\r\n\r\nhtml,body {\r\n  background-color: #292d33;\r\n\r\n}\r\n", ""]);
+exports.push([module.i, "@font-face { font-family: \"bignoodletoo\"; src: url(" + __webpack_require__("../../../../../src/assets/fonts/bignoodletoo.ttf") + "); }\r\n\r\nhtml,body {\r\n  background-color: #292d33;\r\n}\r\n", ""]);
 
 // exports
 
