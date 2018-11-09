@@ -142,8 +142,8 @@ export class StatHeaderComponent implements OnInit {
   winRateListToShow = [];
 
   //which filter to use?
-  displayWinRate = false;
-  displayTimePlayed = true;
+  displayWinRate = true;
+  displayTimePlayed = false;
 
   ngOnInit() { //set persistent stats and generate data needed for initial load
   this.playerStats = this.formService.getPlayerStats();
@@ -300,7 +300,6 @@ export class StatHeaderComponent implements OnInit {
     }
 
   }
-
 
   setStats() {
     if (this.statSetToShow === "competitive"){ //assign heroList and playtimeList, which we use later to loop through and find heroSelected

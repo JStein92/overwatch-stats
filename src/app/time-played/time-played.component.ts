@@ -51,12 +51,13 @@ export class TimePlayedComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.playtimeListToShow);
 
   }
 
   setBarOutline(heroName) {
     let classString= "progress time-played-bar ";
-    if (heroName == this.heroSelected.name)
+    if (this.heroSelected && heroName == this.heroSelected.name)
     {
       return classString += "selected-hero";
     } else{
@@ -65,6 +66,7 @@ export class TimePlayedComponent implements OnInit {
   }
 
   onCharSelect(hero){
+    console.log(hero)
     this.selectCharacterSender.emit(hero);
   }
 
